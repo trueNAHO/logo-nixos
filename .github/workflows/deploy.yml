@@ -16,7 +16,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v4
       - run: nix build
 
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
           files: result/*
           token: ${{ secrets.GITHUB_TOKEN }}
