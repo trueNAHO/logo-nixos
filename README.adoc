@@ -1,0 +1,29 @@
+= NAHO's NixOS Logo
+:naho: link:https://github.com/trueNAHO
+:nix: https://nixos.wiki/wiki/Nix_Installation_Guide
+:nixos: link:https://nixos.org
+:repository-release: https://github.com/trueNAHO/logo-nixos/releases
+:toc:
+
+== About
+
+{naho}[NAHO]'s {nixos}[NixOS] logo.
+
+image::src/main.svg[width=100%]
+
+== Installation
+
+Download the logo from the {repository-release}[release page].
+
+== Usage
+
+To build the logo with {nix}[`nix`], run:
+
+[bash]
+----
+nix build
+----
+
+== License
+
+This project is licensed under link:LICENSE[MIT].
