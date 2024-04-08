@@ -1,0 +1,22 @@
+---
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v10
+      - uses: DeterminateSystems/magic-nix-cache-action@v4
+      - run: nix build
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: result/*
+          token: ${{ secrets.GITHUB_TOKEN }}
