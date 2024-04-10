@@ -9,7 +9,7 @@
 
 {naho}[NAHO]'s {nixos}[NixOS] logo.
 
-image::src/main.svg[width=100%]
+image::src/main.svg[NAHO's NixOS Logo, width=100%]
 
 == Installation
 
