@@ -21,16 +21,20 @@
       system: let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
       in {
-        checks.preCommitHooks = inputs.preCommitHooks.lib.${system}.run {
-          hooks = {
-            alejandra.enable = true;
-            convco.enable = true;
-            typos.enable = true;
-            yamllint.enable = true;
-          };
+        checks = {
+          default = inputs.self.packages.${system}.default;
 
-          settings.alejandra.verbosity = "quiet";
-          src = ./.;
+          preCommitHooks = inputs.preCommitHooks.lib.${system}.run {
+            hooks = {
+              alejandra.enable = true;
+              convco.enable = true;
+              typos.enable = true;
+              yamllint.enable = true;
+            };
+
+            settings.alejandra.verbosity = "quiet";
+            src = ./.;
+          };
         };
 
         devShells.default = pkgs.mkShell {
