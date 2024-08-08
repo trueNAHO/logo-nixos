@@ -45,7 +45,7 @@
           file = "main.svg";
         in
           pkgs.stdenv.mkDerivation {
-            buildPhase = ''svgo "${file}"'';
+            buildPhase = ''svgo --multipass "${file}"'';
             installPhase = ''mkdir --parent "$out"; mv "${file}" "$out"'';
             name = "logo";
             nativeBuildInputs = [pkgs.nodePackages.svgo];
