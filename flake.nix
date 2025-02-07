@@ -2,24 +2,33 @@
   description = "NAHO's NixOS logo";
 
   inputs = {
-    flakeUtils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    preCommitHooks = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:cachix/pre-commit-hooks.nix";
+    flake-utils = {
+      inputs.systems.follows = "systems";
+      url = "github:numtide/flake-utils";
     };
+
+    git-hooks = {
+      inputs = {
+        flake-compat.follows = "";
+        nixpkgs.follows = "nixpkgs";
+      };
+
+      url = "github:cachix/git-hooks.nix";
+    };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
   };
 
   outputs = inputs:
-    inputs.flakeUtils.lib.eachDefaultSystem (
+    inputs.flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
       in {
         checks = {
           default = inputs.self.packages.${system}.default;
 
-          preCommitHooks = inputs.preCommitHooks.lib.${system}.run {
+          git-hooks = inputs.git-hooks.lib.${system}.run {
             hooks = {
               alejandra = {
                 enable = true;
@@ -35,7 +44,7 @@
         };
 
         devShells.default = pkgs.mkShell {
-          inherit (inputs.self.checks.${system}.preCommitHooks) shellHook;
+          inherit (inputs.self.checks.${system}.git-hooks) shellHook;
         };
 
         packages.default = let
