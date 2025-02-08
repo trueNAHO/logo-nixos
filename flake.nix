@@ -6,11 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     preCommitHooks = {
-      inputs = {
-        nixpkgs-stable.follows = "preCommitHooks/nixpkgs";
-        nixpkgs.follows = "nixpkgs";
-      };
-
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:cachix/pre-commit-hooks.nix";
     };
   };
