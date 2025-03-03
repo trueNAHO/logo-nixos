@@ -52,7 +52,7 @@
         in
           pkgs.stdenv.mkDerivation {
             buildPhase = ''svgo --multipass "${file}"'';
-            installPhase = ''mkdir --parent "$out"; mv "${file}" "$out"'';
+            installPhase = ''mkdir --parents "$out"; mv "${file}" "$out"'';
             name = "logo";
             nativeBuildInputs = [pkgs.nodePackages.svgo];
             src = ./src;
